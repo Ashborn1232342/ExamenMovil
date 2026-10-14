@@ -1,0 +1,76 @@
+erDiagram
+    users ||--o{ comercios : administra
+    comercios ||--o{ clientes : registra
+    comercios ||--o{ productos : ofrece
+    comercios ||--o{ proveedores : contrata
+    clientes ||--o{ operaciones_de__ventas : realiza
+    productos ||--o{ operaciones_de__ventas : incluye
+
+    users {
+        bigint id PK
+        string name
+        string email UK
+        string password
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    comercios {
+        bigint id PK
+        string nombre
+        string direccion
+        string telefono
+        string email UK
+        enum estado
+        bigint user_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    clientes {
+        bigint id PK
+        string nombre
+        string email UK
+        string direccion
+        string telefono
+        enum estado
+        bigint comercio_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    productos {
+        bigint id PK
+        string nombre
+        text descripcion
+        decimal precio
+        integer stock
+        enum estado
+        bigint comercio_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    proveedores {
+        bigint id PK
+        string nombre
+        string email UK
+        string direccion
+        string telefono
+        enum estado
+        bigint comercio_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    operaciones_de__ventas {
+        bigint id PK
+        integer cantidad
+        decimal precio_unitario
+        decimal total
+        enum estado
+        bigint producto_id FK
+        bigint cliente_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
